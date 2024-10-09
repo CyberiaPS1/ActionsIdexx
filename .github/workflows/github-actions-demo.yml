@@ -2,26 +2,26 @@ name: GitHub Actions Demo
 
 on:
   push:
-    branch: [ main ]
-    path-ignore: [ .github/** ]
+    branches: [ main ]   # Fixed 'branch' to 'branches'
+    paths-ignore: [ .github/** ]   # Fixed 'path-ignore' to 'paths-ignore'
   pull_request: 
     branches: [ main ]
   schedule: 
-    cron: '15 6 * * 0'
+    - cron: '15 6 * * 0'
   workflow_dispatch:
 
 jobs:
   Build:
     runs-on: ubuntu-latest
     steps:
-      - run: |
-        echo "🎉 The job was triggered by event: ${{ github.event_name }}"
-        echo "🔎 The name of your branch is ${{ github.ref_name }} and your repository is ActionsIdexx"
+      - uses: actions/checkout@v3.3.0   # Checkout action must be placed before any other step
 
-      - uses: actions/checkout@v3.3.0
-
-      - name: List files in the repository
+      - name: Display branch and event information  # Added name for clarity
+        run: |
+          echo "🎉 The job was triggered by event: ${{ github.event_name }}"
+          echo "🔎 The name of your branch is ${{ github.ref_name }} and your repository is ActionsIdexx"
+      
+      - name: List files in the repository  # Added name for clarity
         run: |
           echo "The repository ${{ github.repository }} contains the following files:"
           tree
-
