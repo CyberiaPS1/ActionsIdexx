@@ -16,7 +16,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3.3.0   # Checkout action must be placed before any other step
 
-      - name: Display branch and event information  # Added name for clarity
+      - name: List files in the repository
         run: |
           echo "🎉 The job was triggered by event: ${{ github.event_name }}"
           echo "🔎 The name of your branch is ${{ github.ref_name }} and your repository is ActionsIdexx"
