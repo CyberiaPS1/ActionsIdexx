@@ -1,0 +1,17 @@
+name: Ello' World
+ on:
+    workflow_dispatch:
+      inputs:
+        who-to-greet:
+          descripton: "Who is being greeted"
+          required: true
+          default: "World"
+      outputs: - [time]
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.who-to-greet }}
+    
+    
