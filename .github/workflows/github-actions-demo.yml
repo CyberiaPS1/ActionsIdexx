@@ -12,31 +12,31 @@ on:
     inputs:
       environment:
         description: 'Environment to deploy to'
-        type: environment
-        required: true
+        type: string   # Changed to string
 
 jobs:
   Build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3.3.0   # Checkout action must be placed before any other step
+      - uses: actions/checkout@v3.3.0
 
       - name: List files in the repository
         run: |
           echo "🎉 The job was triggered by event: ${{ github.event_name }}"
           echo "🔎 The name of your branch is ${{ github.ref_name }} and your repository is ActionsIdexx"
       
-      - name: List files in the repository  # Added name for clarity
+      - name: List files in the repository
         run: |
           echo "The repository ${{ github.repository }} contains the following files:"
           tree
-    Test:
-      runs-on: ubuntu-latest
-      if: github.event_name == 'workflow_dispatch'
-      needs: Build
-      environment: Test
-      steps:
-        - run: echo "🧪 Testing..."
+
+  Test:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch'
+    needs: Build
+    environment: Test
+    steps:
+      - run: echo "🧪 Testing..."
 
   Load-Test:
     runs-on: ubuntu-latest
@@ -54,7 +54,7 @@ jobs:
     environment:
       name: Production
       url: https://writeabout.net
-    if: github.event.inputs.environment == 'Production'
+    if: github.event.inputs.environment == 'Production'  # Accessing inputs correctly
     steps:
       - run: |
           echo "🚀 Step 1..."
@@ -71,5 +71,3 @@ jobs:
       - run: |
           echo "🚀 Step 5..."
           sleep 10
-
-#
